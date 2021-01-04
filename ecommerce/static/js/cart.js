@@ -8,7 +8,7 @@ for (let i = 0; i < updateBtns.length; i++) {
 
         console.log('USER: ', user)
 
-        if(user === 'AnonymousUser') {
+        if(user == 'AnonymousUser') {
             console.log("User not logged in...")
         } else {
             // console.log("User is logged in, sending data...")
@@ -23,14 +23,14 @@ function updateUserOrder(productId, action) {
     var url = '/update-item/'
 
     fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({"productId": productId, "action": action})
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+        }, 
+        body:JSON.stringify({'productId':productId, 'action':action})
     })
     .then((response) => {
-        return response.json()
+       return response.json();
     })
     .then((data) => {
         console.log("data: ", data)
