@@ -8,10 +8,10 @@ from .utils import cookieCart, cartData, guest_order
 from .models import *
 import json
 import datetime
-from . secrets import *
-import stripe
+# from . secrets import *
+# import stripe
 
-stripe.api_key = STRIPE_SECRET_KEY
+# stripe.api_key = STRIPE_SECRET_KEY
 
 # Create your views here.
 
@@ -97,47 +97,3 @@ def process_order(request):
      
     return JsonResponse('Payment Completed!', safe=False)
 
-
-@csrf_exempt
-def stripe_config(request):
-    if request.method == 'GET':
-        stripe_config = {'publicKey': STRIPE_PUBLISHABLE_KEY}
-        return JsonResponse(stripe_config, safe=False)
-
-
-class CreateCheckoutSessionView(View):
-    def post(self, request, *args, **kwargs):
-        product_id = self.kwargs["pk"]
-        product = Product.objects.get(id=product_id)
-        YOUR_DOMAIN = "http://127.0.0.1:8000"
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[
-                {
-                    'price_data': {
-                        'currency': 'usd',
-                        'unit_amount': int(product.price),
-                        'product_data': {
-                            'name': product.name
-                        },
-                    },
-                    'quantity': 1,
-                },
-            ],
-            metadata={
-                "product_id": product.id
-            },
-            mode='payment',
-            success_url=YOUR_DOMAIN + '/success/',
-            cancel_url=YOUR_DOMAIN + '/cancel/',
-        )
-        return JsonResponse({
-            'id': checkout_session.id
-        })
-
-
-class SuccessView(TemplateView):
-    template_name = "success.html"
-
-class CancelView(TemplateView):
-    template_name = "cancel.html"
