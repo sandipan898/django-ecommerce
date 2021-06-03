@@ -6,6 +6,10 @@
     ```
         git clone https://github.com/sandipan898/django-ecommerce    
     ```
+- run:
+    ```
+    pip install -r requirements.txt
+    ```
 - In cmd or terminal go to the project folder then run:
     ```
     cd ecommerce
