@@ -2,7 +2,8 @@
 
 {% load static %}
 {% block content %}
-<div class="row">
+<div class="container">
+<div class="row my-4">
     <div class="col-lg-6">
         <div class="box-element" id="form-wrapper">
             <form action="" id="form">
@@ -65,7 +66,7 @@
                     <p>{{item.product.name}}</p>
                 </div>
                 <div style="flex:1">
-                    <p>${{item.product.price}}</p>
+                    <p>&#8377; {{item.product.price}}</p>
                 </div>
                 <div style="flex:1">
                     <p>x{{item.quantity}}</p>
@@ -73,9 +74,10 @@
             </div>
             {% endfor %}
             <h5>Items: {{order.get_cart_items}}</h5>
-            <h5>Total: ${{order.get_cart_total|floatformat:2}}</h5>
+            <h5>Total: &#8377; {{order.get_cart_total|floatformat:2}}</h5>
         </div>
     </div>
+</div>
 </div>
 <!-- Include the PayPal JavaScript SDK -->
 <script src="https://www.paypal.com/sdk/js?client-id=ASVCK251tixv83yzr0YJgyfynmuvb4jxwf7VeiZEvwS3NIMabMMx8J6ifMbYH35Pjq44m693mN1Bv684&currency=INR&disable-funding=credit"></script>

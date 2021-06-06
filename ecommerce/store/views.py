@@ -3,6 +3,9 @@ from django.views.decorators.csrf import csrf_exempt # new
 from django.http import JsonResponse
 from django.views import View
 from django.views.generic import TemplateView
+from .forms import SignupUserForm
+from django.views import generic
+from django.urls import reverse, reverse_lazy
 
 from .utils import cookieCart, cartData, guest_order
 from .models import *
@@ -97,3 +100,8 @@ def process_order(request):
      
     return JsonResponse('Payment Completed!', safe=False)
 
+
+class UserSignupView(generic.CreateView):
+    form_class = SignupUserForm
+    template_name = "store/signup.html"
+    success_url = reverse_lazy('store')

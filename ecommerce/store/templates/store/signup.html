@@ -1,0 +1,46 @@
+{% extends 'store/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<main class="my-2">
+    <div class="container">
+        <section class="card wow fadeIn">
+            <div class="card-body px-5 my-2">
+                <h1 class="my-4">
+                    <strong>SignUp</strong>
+                </h1>
+                <form class="form" action="{% url 'signup' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+
+                    {% for field in form %}
+                    <div class="form-group form-row">
+                        <div class="form-group col-md-8 mb-0">
+                            <div class="form-outline mb-2 p-2">
+                                <label class="form-label" for="{{field.id_for_label}}">{{field.label}}</label>
+                                {{field}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 mb-0 text-primary">
+                            {{field.help_text}}
+                        </div>
+                        <div class="form-group col-md-4 mb-0 red-text">
+                            {{field.errors}}
+                        </div>
+                    </div>
+                    
+                    {% endfor %}
+
+                    <div class="pt-4">
+                        <button type="submit" class="btn btn-primary active">Sign Up</button>
+                    </div>
+
+                </form>
+                <div class="mt-2">Already have an account? <a href="{% url 'login' %}"> Login here</a></div>
+            </div>
+        </section>
+    </div>
+</main>
+
+{% endblock %}
